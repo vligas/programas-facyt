@@ -39,6 +39,7 @@
 ### Explicacion de el problema:
 ![Alt text](flujo.png?raw=true "Flujo")
 
+------------------------------------------
 
 # *! Pasos para configurar un ambiente de desarrollo correctamente !*
 1. Instalar virtuelenv `pip install virtualenv`
