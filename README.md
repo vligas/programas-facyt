@@ -34,6 +34,7 @@
   * Procesa: Procesa dichas solicitudes (tambien puede recibirlas)
   * Admin: Firma las solicitudes (tambien puede procesarlas y recibirlas) **El admin es el unico usuario que puede entrar al admin panel**
 
+------------------------------------------
 
 ### Explicacion de el problema:
 ![Alt text](flujo.png?raw=true "Flujo")
