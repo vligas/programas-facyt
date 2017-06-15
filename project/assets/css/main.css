@@ -28,7 +28,7 @@ body {
   box-shadow: 2px 2px 5px rgb(108, 108, 105);
 }
 
-#btn-small {
+.btn-small {
   padding: 0 0.5rem;
   font-size: 10px;
 }
