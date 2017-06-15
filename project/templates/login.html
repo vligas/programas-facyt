@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
+
+{% block title %} Log In {% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col s4 offset-s4 logo">
+        <img class="responsive-img" src="{% static 'img/logo.png '%}" alt="logo">
+      </div>
+      <div class="col s12">
+        <h5 class="center-align pie">Descarga de programas FACYT-Computación</h5>
+      </div>
+      <div class="col s4 offset-s4">
+        <div class="card">
+          <div class="card-block form-login">
+            <form class="" method="post">
+              {% csrf_token %}
+                <div class="input-field">
+                  <input id="username" type="text" class="validate">
+                  <label for="username">Nombre de Usuario:</label>
+                </div>
+
+                <div class="input-field">
+                  <input id="password" type="password" class="validate">
+                  <label for="password">Contraseña:</label>
+                </div>
+                <br>
+                <div class="form-group">
+                  <button class="btn waves-effect waves-light blue" id="btn-small" type="submit" name="button">Conectarse</button>
+                </div>
+              </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
