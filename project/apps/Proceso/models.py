@@ -13,7 +13,7 @@ ESTATUS_CHOICES = ( #Posibles estatus de la Solicitud
 
 def path_solicitud(instance, filename): #Funcion loca que determina donde seran subidos los archivos y su formato
 # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'Solicitudes/{}_{}/{}'.format(instance.Solicitud.pk,instance.Solicitud.nombre.replace(' ','_'), filename)
+    return 'Solicitudes/{}_{}/{}'.format(instance.pk,instance.nombre.replace(' ','_'), filename)
 
 class Solicitud(models.Model):
     nombre = models.CharField(max_length=200)#Nombre de la persona, completo
