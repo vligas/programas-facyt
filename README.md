@@ -32,4 +32,4 @@
 * Los usuarios en este caso son las personas que administran el sitio y estan dividios en 3 grupos:
   * Recibe - Entrega: encargado de recibir las solicitudes de los estudiantes y cargarlas en el sistema, posteriormente tambien pueden entregar los programas a los estudiantes una vez culminado el proceso.
   * Procesa: Procesa dichas solicitudes (tambien puede recibirlas)
-  * Admin: Firma las solicitudes (tambien puede procesarlas y recibirlas) ** El admin es el unico usuario que puede entrar al admin panel **
+  * Admin: Firma las solicitudes (tambien puede procesarlas y recibirlas) **El admin es el unico usuario que puede entrar al admin panel**
