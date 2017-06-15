@@ -38,3 +38,22 @@
 
 ### Explicacion de el problema:
 ![Alt text](flujo.png?raw=true "Flujo")
+
+
+# *! Pasos para configurar un ambiente de desarrollo correctamente !*
+1. Instalar virtuelenv `pip install virtualenv`
+2. Clonar el repositorio
+3. Iniciar un entorno virtual dentro del repositorio
+```
+cd programas-facyt
+
+virtualenv -p python venv // en mi caso es python3
+```
+4. Activar el virtualenv
+```
+source venv/bin/activate
+
+// deberia aparecer algo como (venv) en el terminal
+```
+5. instalar requerimientos `pip install -r requirements.txt`
+6. cada vez que se quiera instalar algo o correr el servidor activar el entorno virtual antes
