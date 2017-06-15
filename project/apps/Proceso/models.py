@@ -1,36 +1,47 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User #Necesario para el User de la relacion ForeignKey
 
 
 # Create your models here.
-OPCIONES_ESTATUS = (
+ESTATUS_CHOICES = ( #Posibles estatus de la Solicitud
     ('Recibido'),
     ('Entregado'),
     ('En Proceso'),
 )
 
+def path_solicitud(instance, filename): #Funcion loca que determina donde seran subidos los archivos y su formato
+# file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'Solicitudes/{}_{}/{}'.format(instance.Solicitud.pk,instance.Solicitud.nombre.replace(' ','_'), filename)
+
 class Solicitud(models.Model):
-    nombre = models.CharField(max_length=200)
-    cedula = models.IntegerField()
-    telefono = models.CharField(_('Telefono'), max_length=18)
-    solvencia = models.BooleanField()
-    archivo_adjunto = FileField(upload_to='path_solicitud')
-    usuario_creador = models.ForeignKey(User)
-    usuario_procesador = models.ForeignKey(User)
-    fecha_creacion = models.DateTimeField()
-    fecha_firma = models.DateTimeField()
-    correo_recibido = models.BooleanField()
-    correo_procesado = models.BooleanField()
-    estatus =
+    nombre = models.CharField(max_length=200)#Nombre de la persona, completo
+    cedula = models.CharField(max_length=15)#Cedula de la persona, es una cadena por: 'V.- 26.186.525'
+    telefono = models.CharField(max_length=18)#Telefono de la persona, es una cadena por: '+58-414-582-5878'
+    solvencia = models.BooleanField()#Solvencia por si la persona debe algo
+    archivo_adjunto = FileField(upload_to=path_solicitud)#Archivo ccon reporte de notas
+    usuario_creador = models.ForeignKey(User)#Relacion con el Usuario ¿?¿?¿?¿?¿?
+    usuario_procesador = models.ForeignKey(User, null=True, blank=True)#Relacion con el usuario ¿?¿?¿?
+    fecha_creacion = models.DateTimeField(auto_now_add=True) #para que cuando se cree lo ponga automaticamente con la fecha actual
+    fecha_firma = models.DateTimeField(null=True, blank=True)#null y blank son parametros para campos que no concoemos de primeras
+    fecha_procesada = models.DateTimeField(null=True, blank=True)#Fecha al momento de procesar
+    correo_recibido = models.BooleanField(default=False)#Logico que informa si el correo fue recibido
+    correo_procesado = models.BooleanField(default=False)#logico que informa si el correo fue procesado
+    estatus = models.CharField(choices=ESTATUS_CHOICES, max_length=10)#estatus actual de la Solicitud
+    lista = FileField(upload_to=path_solicitud, null=True, blank=True)#Lista de programas de la persona
 
     def __str__(self):
         return self.nombre
 
-    def path_solicitud(instance, filename):
+# class Archivo(models.Model):
+#     documento = FileField(upload_to='STRING')
+
+    #def path_archivo(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'Solicitudes/{}_{}/{}'.format(instance.Solicitud.pk,instance.Solicitud.nombre.replace(' ','_'), filename)
+    #return 'Solicitudes/{}_{}/{}'.format(instance.Solicitud.pk,instance.Solicitud.nombre.replace(' ','_'), filename)
+
 
 class Programas(models.Model):
-    codigo_materia =  models.CharField()
-    periodo = models.CharField()
-    archivo =
+    codigo_materia =  models.CharField(max_length=15)# ejemplo: TAO-202
+    periodo_electivo = models.CharField(max_length=10)# Estos 2 campos son para algo como
+    periodo_annio = models.CharField(max_length=10)#por ejemplo: 1-2016
+    #archivo = models.ForeignKey(Archivo)
