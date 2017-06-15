@@ -4,10 +4,12 @@ from django.contrib.auth.models import User #Necesario para el User de la relaci
 
 # Create your models here.
 ESTATUS_CHOICES = ( #Posibles estatus de la Solicitud
-    ('Recibido'),
-    ('Entregado'),
-    ('En Proceso'),
+    ('R','Recibido'),
+    ('E','Entregado'),
+    ('P','En Proceso'),
 )
+# BUG DEBEN SER TUPLAS, NO LO ERAN
+
 
 def path_solicitud(instance, filename): #Funcion loca que determina donde seran subidos los archivos y su formato
 # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
@@ -18,16 +20,19 @@ class Solicitud(models.Model):
     cedula = models.CharField(max_length=15)#Cedula de la persona, es una cadena por: 'V.- 26.186.525'
     telefono = models.CharField(max_length=18)#Telefono de la persona, es una cadena por: '+58-414-582-5878'
     solvencia = models.BooleanField()#Solvencia por si la persona debe algo
-    archivo_adjunto = FileField(upload_to=path_solicitud)#Archivo ccon reporte de notas
-    usuario_creador = models.ForeignKey(User)#Relacion con el Usuario ¿?¿?¿?¿?¿?
-    usuario_procesador = models.ForeignKey(User, null=True, blank=True)#Relacion con el usuario ¿?¿?¿?
+    archivo_adjunto = models.FileField(upload_to=path_solicitud)#Archivo ccon reporte de notas
+    usuario_creador = models.ForeignKey(User, related_name="solicitudes_creadas")#Relacion con el Usuario ¿?¿?¿?¿?¿?
+    usuario_procesador = models.ForeignKey(User, null=True, blank=True, related_name="solicitud_procesadas")#Relacion con el usuario ¿?¿?¿?
+
+    # BUG AL TENER 2 FOREING KEY CON EL MISMO MODELO DABA ERROR, CAMBIE EL RELATED_NAME PARA SOLUCIONARLO
+
     fecha_creacion = models.DateTimeField(auto_now_add=True) #para que cuando se cree lo ponga automaticamente con la fecha actual
     fecha_firma = models.DateTimeField(null=True, blank=True)#null y blank son parametros para campos que no concoemos de primeras
     fecha_procesada = models.DateTimeField(null=True, blank=True)#Fecha al momento de procesar
     correo_recibido = models.BooleanField(default=False)#Logico que informa si el correo fue recibido
     correo_procesado = models.BooleanField(default=False)#logico que informa si el correo fue procesado
     estatus = models.CharField(choices=ESTATUS_CHOICES, max_length=10)#estatus actual de la Solicitud
-    lista = FileField(upload_to=path_solicitud, null=True, blank=True)#Lista de programas de la persona
+    lista = models.FileField(upload_to=path_solicitud, null=True, blank=True)#Lista de programas de la persona
 
     def __str__(self):
         return self.nombre
