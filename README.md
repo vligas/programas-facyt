@@ -43,7 +43,7 @@
 # *! Pasos para configurar un ambiente de desarrollo correctamente !*
 1. Instalar virtuelenv `pip install virtualenv`
 2. Clonar el repositorio
-3. Iniciar un entorno virtual dentro del repositorio
+3. Iniciar un entorno virtual dentro del repositorio (root ó raiz)
 ```
 cd programas-facyt
 
