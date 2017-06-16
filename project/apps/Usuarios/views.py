@@ -7,4 +7,4 @@ def index(request):
     return HttpResponse("Hola")
 
 def home(request):
-    return render(request, 'home_layout.html')
+    return render(request, 'list.html')
