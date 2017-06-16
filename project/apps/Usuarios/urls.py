@@ -4,6 +4,6 @@ from . import views
 
 
 urlpatterns = [
+    url(r'^$', login, {'template_name':'login.html'}, name = 'login'),
     url(r'^index/', views.index, name = 'index'),
-    url(r'^login/', login, {'template_name':'login.html'}, name = 'login'),
 ]
