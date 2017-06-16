@@ -29,9 +29,10 @@ body {
 
 }
 
-.bton{
-  width: 100%;
-}
+/*.bton{
+  width: 50%;
+  margin: 0 auto;
+}*/
 
 .nav-wrapper .brand-logo img {
   height: 85px;
@@ -50,4 +51,15 @@ body {
  .btn-head {
    margin-top: 5px;
    margin-right: 100px;
+ }
+
+ .full-page
+ {
+     min-height: 100vh !important;
+     padding-top:30px !important;
+ }
+
+ .main-content
+ {
+     margin-top:20px;
  }

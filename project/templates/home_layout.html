@@ -7,8 +7,9 @@
   <div class="navbar-fixed">
     <nav class="white main-nav ">
       <div class="nav-wrapper" role="navigation">
-        <a href="#" class="brand-logo"><img class="responsive-img" src="{% static 'img/logo-completo.png'%}" alt="LogoFacyt"></a
-        <ul class="right hide-on-med-and-down">
+        <a href="#" class="brand-logo left"><img class="responsive-img" src="{% static 'img/logo-completo.png'%}" alt="LogoFacyt"></a>
+        <!--<ul class="hide-on-med-and-down right">-->
+        <ul class="hide-on-med-and-down right">
           <li><a href="#" class="waves-effect waves-light btn blue">Añadir</a></li>
           <li><a href="#" class="waves-effect waves-light btn blue">Desconectarse</a></li>
         </ul>
@@ -16,11 +17,21 @@
     </nav>
   </div>
 
-  <div class="container2 ">
+  <div class="container-fluid main-content">
+    <div class="row">
+        <div class="col s10 offset-s1 full-page card">
+            <div class="card-block">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, voluptas, eaque. Repudiandae culpa nemo quasi odit error, labore sunt a expedita nesciunt nobis, officiis explicabo vel quae sapiente saepe corrupti!
+            </div>
+        </div>
+    </div>
+    <!-- <div class="card col s10full-page">
 
-    {% block content_two %}
+        {% block content_two %}
 
-    {% endblock %}
+        {% endblock %}
+    </div>-->
+
   </div>
 
     </div>
