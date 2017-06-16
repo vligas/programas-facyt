@@ -29,10 +29,13 @@ body {
 
 }
 
-/*.bton{
-  width: 50%;
-  margin: 0 auto;
-}*/
+.btn-small {
+    height: 25px !important;
+    line-height: 25px !important;
+    padding: 0.3 1rem !important;
+    font-size: 10px !important;
+
+}
 
 .nav-wrapper .brand-logo img {
   height: 85px;
@@ -63,3 +66,13 @@ body {
  {
      margin-top:20px;
  }
+
+.modal {
+  width: 30% !important;
+  min-height: 550px !important;
+}
+
+.archivo {
+  margin-bottom: 0px !important;
+
+}
