@@ -21,7 +21,7 @@
     <div class="modal-content">
       <h5 class="center-align">Añadir nueva solicitud</h5>
       <div class="container">
-        <form method="post">
+        <form method="post" action="{% url 'crear_solicitud' %}">
           {% csrf_token %}
           <div class="input-field">
             <label for="nombre">Nombre</label>
