@@ -20,4 +20,5 @@ from django.contrib.auth.views import login
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('apps.Usuarios.urls')),
+    url(r'^home/', include('apps.Proceso.urls')),
 ]

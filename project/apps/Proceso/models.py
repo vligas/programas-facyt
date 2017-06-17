@@ -16,10 +16,12 @@ def path_solicitud(instance, filename): #Funcion loca que determina donde seran 
     return 'Solicitudes/{}_{}/{}'.format(instance.pk,instance.nombre.replace(' ','_'), filename)
 
 class Solicitud(models.Model):
-    nombre = models.CharField(max_length=200)#Nombre de la persona, completo
+    nombre = models.CharField(max_length=50)#Nombre de la persona
+    apellido = models.CharField(max_length=50)#Apellido de la persona
     cedula = models.CharField(max_length=15)#Cedula de la persona, es una cadena por: 'V.- 26.186.525'
     telefono = models.CharField(max_length=18)#Telefono de la persona, es una cadena por: '+58-414-582-5878'
-    solvencia = models.BooleanField()#Solvencia por si la persona debe algo
+    solvencia = models.BooleanField(default=True)#Solvencia por si la persona debe algo
+    correo =  models.EmailField()#Correo de la persona
     archivo_adjunto = models.FileField(upload_to=path_solicitud)#Archivo ccon reporte de notas
     usuario_creador = models.ForeignKey(User, related_name="solicitudes_creadas")#Relacion con el Usuario ¿?¿?¿?¿?¿?
     usuario_procesador = models.ForeignKey(User, null=True, blank=True, related_name="solicitud_procesadas")#Relacion con el usuario ¿?¿?¿?
@@ -31,7 +33,7 @@ class Solicitud(models.Model):
     fecha_procesada = models.DateTimeField(null=True, blank=True)#Fecha al momento de procesar
     correo_recibido = models.BooleanField(default=False)#Logico que informa si el correo fue recibido
     correo_procesado = models.BooleanField(default=False)#logico que informa si el correo fue procesado
-    estatus = models.CharField(choices=ESTATUS_CHOICES, max_length=10)#estatus actual de la Solicitud
+    estatus = models.CharField(default = 'R', choices=ESTATUS_CHOICES, max_length=10)#estatus actual de la Solicitud
     lista = models.FileField(upload_to=path_solicitud, null=True, blank=True)#Lista de programas de la persona
 
     def __str__(self):
