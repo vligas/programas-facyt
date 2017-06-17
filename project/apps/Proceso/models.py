@@ -20,7 +20,7 @@ class Solicitud(models.Model):
     apellido = models.CharField(max_length=50)#Apellido de la persona
     cedula = models.CharField(max_length=15)#Cedula de la persona, es una cadena por: 'V.- 26.186.525'
     telefono = models.CharField(max_length=18)#Telefono de la persona, es una cadena por: '+58-414-582-5878'
-    solvencia = models.BooleanField()#Solvencia por si la persona debe algo
+    solvencia = models.BooleanField(default=True)#Solvencia por si la persona debe algo
     correo =  models.EmailField()#Correo de la persona
     archivo_adjunto = models.FileField(upload_to=path_solicitud)#Archivo ccon reporte de notas
     usuario_creador = models.ForeignKey(User, related_name="solicitudes_creadas")#Relacion con el Usuario ¿?¿?¿?¿?¿?

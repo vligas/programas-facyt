@@ -5,7 +5,7 @@ class SolicitudForm(forms.ModelForm):
 
 
     class Meta:
-        model = models.Solicitud()
+        model = models.Solicitud # ERROR AQUI NO SE INSTANCIA
 
         fields = [
             'nombre',
