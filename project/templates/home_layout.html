@@ -10,11 +10,53 @@
         <a href="#" class="brand-logo left"><img class="responsive-img" src="{% static 'img/logo-completo.png'%}" alt="LogoFacyt"></a>
         <!--<ul class="hide-on-med-and-down right">-->
         <ul class="hide-on-med-and-down right">
-          <li><a href="#" class="waves-effect waves-light btn btn-large blue">Añadir</a></li>
-          <li><a href="#" class="waves-effect waves-light btn btn-large blue">Desconectarse</a></li>
+          <li><a href="#modal1" class="waves-effect waves-light btn blue">Añadir</a></li>
+          <li><a href="#" class="waves-effect waves-light btn blue">Desconectarse</a></li>
         </ul>
+
       </div>
     </nav>
+  </div>
+  <div id="modal1" class="modal">
+    <div style="margin-top:0px;" class="modal-content">
+      <h5 class="center-align">Añadir nueva solicitud</h5>
+      <div class="container">
+        <form method="post">
+          {% csrf_token %}
+          <div class="input-field">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" type="text" class="validate">
+          </div>
+          <div class="input-field">
+            <label for="cedula">Cédula</label>
+            <input id="cedula" type="text" class="validate">
+          </div>
+          <div class="input-field">
+            <label for="Correo">Correo</label>
+            <input id="Correo" type="text" class="validate">
+          </div>
+          <div class="input-field">
+            <label for="telefono">Teléfono</label>
+            <input id="telefono" type="text" class="validate">
+          </div>
+          <div class="file-field input-field">
+            <div class="btn blue btn-small">
+              <span>Archivo</span>
+              <input type="file">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s4 offset-s3">
+              <a href="#" class="waves-effect waves-light btn blue btn-small rigth">Añadir</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 
   <div class="container-fluid main-content">
@@ -26,9 +68,6 @@
 
         </div>
     </div>
-
   </div>
 
-    </div>
-  </div>
 {% endblock %}
