@@ -8,3 +8,6 @@ def index(request):
 
 def home(request):
     return render(request, 'list.html')
+
+def solicitud(request):
+    return render(request,'solicitud.html')
