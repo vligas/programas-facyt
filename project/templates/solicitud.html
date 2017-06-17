@@ -7,11 +7,65 @@
 {% block content_two %}
   <div class="row">
     <div class="col s6">
-
+      <h5 class="center-align">15 Victor Ligas V-26.267.115</h5>
+      <br>
+      <div class="container">
+        <form method="post">
+          {% csrf_token %}
+          <div class="input-field">
+            <label for="nombre">Periodo</label>
+            <input id="nombre" type="text" class="validate">
+          </div>
+          <div class="input-field">
+            <label for="cedula">Materias</label>
+            <input id="cedula" type="text" class="validate">
+          </div>
+          <br>
+          <div class="btn-group center-align">
+              <a href="" class="btn btn-floating right-align blue"><i class="material-icons">check</i></a>
+          </div>
+        </form>
+      </div>
     </div>
 
     <div class="col s6">
-      <img class="responsive-img" src="{% static 'img/g.png' %}" alt="p">
+      <h5 class"center-align">Programas listos para descargar   <a href="" class="btn btn-floating right-align blue"><i class="material-icons">file_download</i></a> </h5>
+      <br>
+      <div class="scroll-def">
+        <ul class="collection">
+          <li class="collection-item avatar">
+            <i class="fa fa-file-pdf-o fa-2x red-text white circle"></i>
+            <span class="title"><strong>1-2016</strong></span>
+            <p class="color-text-g">TAO-201, CAO-402, TAO-302, CAO-205</p>
+          </li>
+          <li class="collection-item avatar">
+            <i class="fa fa-file-pdf-o fa-2x red-text white circle"></i>
+            <span class="title"><strong>1-2016</strong></span>
+            <p class="color-text-g">TAO-201, CAO-402, TAO-302, CAO-205</p>
+          </li>
+          <li class="collection-item avatar">
+            <i class="fa fa-file-pdf-o fa-2x red-text white circle"></i>
+            <span class="title"><strong>1-2016</strong></span>
+            <p class="color-text-g">TAO-201, CAO-402, TAO-302, CAO-205</p>
+          </li>
+          <li class="collection-item avatar">
+            <i class="fa fa-file-pdf-o fa-2x red-text white circle"></i>
+            <span class="title"><strong>1-2016</strong></span>
+            <p class="color-text-g">TAO-201, CAO-402, TAO-302, CAO-205</p>
+          </li>
+          <li class="collection-item avatar">
+            <i class="fa fa-file-pdf-o fa-2x red-text white circle"></i>
+            <span class="title"><strong>1-2016</strong></span>
+            <p class="color-text-g">TAO-201, CAO-402, TAO-302, CAO-205</p>
+          </li>
+          <li class="collection-item avatar">
+            <i class="fa fa-file-pdf-o fa-2x red-text white circle"></i>
+            <span class="title"><strong>1-2016</strong></span>
+            <p class="color-text-g">TAO-201, CAO-402, TAO-302, CAO-205</p>
+          </li>
+        </ul>
+
+      </div>
     </div>
   </div>
 {% endblock %}

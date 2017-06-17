@@ -77,9 +77,24 @@ body {
   min-height: 550px !important;
 }
 
+.color-text-g{
+  color: rgb(124, 122, 128) !important;
+  font-size: 13px;
+}
+
+.scroll-def{
+  height: 350px;
+  overflow: scroll;
+}
+
+.title{
+  font-size: 18px !important;
+}
+
 .archivo {
   margin-bottom: 0px !important;
 }
+
 
 .btn-group .btn
 {
