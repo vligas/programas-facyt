@@ -21,11 +21,11 @@
     <div class="modal-content">
       <h5 class="center-align">Añadir nueva solicitud</h5>
       <div class="container">
-      <!--  <form method="post" action="{% url 'crear_solicitud' %}"> -->
+        <form method="post" action="{% url 'crear_solicitud' %}"  enctype="multipart/form-data">
           {% csrf_token %}
           {{form.as_p}}
           <button type="submit"> Submit </button>
-      <!--    <div class="input-field">
+        <!--  <div class="input-field">
             <label for="nombre">Nombre</label>
             <input id="nombre" type="text" class="validate">
           </div>
@@ -58,8 +58,8 @@
                 <button type="submit" class="btn btn-floating left-align red"><i class="material-icons">close</i></a>
                 <button type="submit" class="btn btn-floating right-align green"><i class="material-icons">check</i></a>
             </div>
-          </div>
-        </form> -->
+          </div> -->
+        </form>
       </div>
     </div>
   </div>
