@@ -1,7 +1,7 @@
 body {
-  background: #0575e6;
-  background: -webkit-linear-gradient(to bottom, #0575e6, #021b79);
-  background: linear-gradient(to bottom, #0575e6, #021b79);
+  background: #2387EC;
+  background: -webkit-linear-gradient(to bottom, #2387EC, #004890);
+  background: linear-gradient(to bottom, #2387EC, #004890);
 }
 
 html {
@@ -33,19 +33,24 @@ body {
   width: 50%;
   margin: 0 auto;
 }*/
+.big-card
+{
+    padding-left:40px !important;
+    padding-right:40px !important;
+}
 
 .nav-wrapper .brand-logo img {
-  height: 85px;
-  width: 400px !important;
+  /*height: 85px;*/
+  width: 500px !important;
   margin-left: 10px;
 }
 
 
 .main-nav
 {
-  padding: 10px;
+  padding: 10px 80px;
   position:relative;
-  height:100px !important;
+  height:130px !important;
 }
 
  .btn-head {
@@ -56,7 +61,7 @@ body {
  .full-page
  {
      min-height: 100vh !important;
-     padding-top:30px !important;
+     padding-top:70px !important;
  }
 
  .main-content
