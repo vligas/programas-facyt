@@ -39,7 +39,7 @@ body {
     line-height: 25px !important;
     padding: 0.3 1rem !important;
     font-size: 10px !important;
-
+    vertical-align: bottom;
 }
 
 .nav-wrapper .brand-logo img {
@@ -79,5 +79,9 @@ body {
 
 .archivo {
   margin-bottom: 0px !important;
+}
 
+.btn-group .btn
+{
+    margin:0px 20px;
 }
