@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from . import forms
 
 # Create your views here.
 
@@ -7,7 +8,8 @@ def index(request):
     return HttpResponse("Hola")
 
 def home(request):
-    return render(request, 'list.html')
+    form = forms.SolicitudForm()
+    return render(request, 'list.html', { 'form':form })
 
 def solicitud(request):
     return render(request,'solicitud.html')
