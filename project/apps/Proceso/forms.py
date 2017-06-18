@@ -12,8 +12,8 @@ class SolicitudForm(forms.ModelForm):
             'apellido',
             'cedula',
             'telefono',
-            'solvencia',
             'correo',
+            'solvencia',
             'archivo_adjunto',
         ]
 

@@ -15,7 +15,7 @@
         </div>
       </div>
 
-      <div class="col s12">
+      <div class="col s12" >
         <table class="centered responsive-table">
           <thead>
             <tr>
@@ -28,35 +28,18 @@
                 <th>Acciones</th>
             </tr>
           </thead>
-
           <tbody>
-            <tr>
-              <td>Crismary Castellanos</td>
-              <td>25.444.796</td>
-              <td>crismary04@gmail.com</td>
-              <td>0424-329-4370</td>
-              <td>Procesada</td>
-              <td><i class="fa fa-file-pdf-o fa-2x red-text"></i></td>
-              <td><i class="fa fa-cog fa-2x grey-text text-darken-2"></i></td>
-            </tr>
-            <tr>
-              <td>Crismary Castellanos</td>
-              <td>25.444.796</td>
-              <td>crismary04@gmail.com</td>
-              <td>0424-329-4370</td>
-              <td>Esperando Firma</td>
-              <td><i class="fa fa-file-pdf-o fa-2x red-text"></i></td>
-              <td><i class="fa fa-exclamation-triangle fa-2x yellow-text text-darken-3"></i></td>
-            </tr>
-            <tr>
-              <td>Crismary Castellanos</td>
-              <td>25.444.796</td>
-              <td>crismary04@gmail.com</td>
-              <td>0424-329-4370</td>
-              <td>Recibido</td>
-              <td><i class="fa fa-file-pdf-o fa-2x red-text"></i></td>
-              <td><i class="fa fa-cog fa-2x grey-text text-darken-2"></i></td>
-            </tr>
+          {% for solicitud in solicitudes  %}
+              <tr>
+                <td>{{solicitud}}</td>
+                <td>{{solicitud.cedula}}</td>
+                <td>{{solicitud.correo}}</td>
+                <td>{{solicitud.telefono}}</td>
+                <td>{{solicitud.get_estatus}}</td>
+                <td><i class="fa fa-file-pdf-o fa-2x red-text"></i></td>
+                <td><i class="fa fa-cog fa-2x grey-text text-darken-2"></i></td>
+              </tr>
+          {% endfor %}
           </tbody>
         </table>
       </div>

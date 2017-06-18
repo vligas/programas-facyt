@@ -21,7 +21,7 @@
     <div class="modal-content">
       <h5 class="center-align">Añadir nueva solicitud</h5>
       <div class="container">
-        <form method="post" action="{% url 'crear_solicitud' %}">
+        <form method="post" action="{% url 'crear_solicitud' %}" enctype="multipart/form-data">
         {% csrf_token %}
           <div class="input-field">
             {{form.nombre.label_tag}}
@@ -39,7 +39,10 @@
             {{form.telefono.label_tag}}
             {% render_field form.telefono %}
           </div>
-
+          <div class="input-field">
+            {{form.correo.label_tag}}
+            {% render_field form.correo %}
+          </div>
           <p>
             {% render_field form.solvencia %}
             {{form.solvencia.label_tag}}

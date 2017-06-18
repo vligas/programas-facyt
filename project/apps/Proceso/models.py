@@ -37,8 +37,10 @@ class Solicitud(models.Model):
     lista = models.FileField(upload_to=path_solicitud, null=True, blank=True)#Lista de programas de la persona
 
     def __str__(self):
-        return self.nombre
+        return self.nombre + ' ' + self.apellido
 
+    def get_estatus(self):
+        return self.get_estatus_display()
 # class Archivo(models.Model):
 #     documento = FileField(upload_to='STRING')
 
