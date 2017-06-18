@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% load staticfiles %}
-
+{% load widget_tweaks %}
 {% block title %} Home {% endblock %}
 
 {% block content %}
@@ -21,31 +21,34 @@
     <div class="modal-content">
       <h5 class="center-align">Añadir nueva solicitud</h5>
       <div class="container">
-      <!--  <form method="post" action="{% url 'crear_solicitud' %}"> -->
-          {% csrf_token %}
-          {{form.as_p}}
-          <button type="submit"> Submit </button>
-      <!--    <div class="input-field">
-            <label for="nombre">Nombre</label>
-            <input id="nombre" type="text" class="validate">
+        <form method="post" action="{% url 'crear_solicitud' %}">
+        {% csrf_token %}
+          <div class="input-field">
+            {{form.nombre.label_tag}}
+            {% render_field form.nombre %}
           </div>
           <div class="input-field">
-            <label for="cedula">Cédula</label>
-            <input id="cedula" type="text" class="validate">
+            {{form.apellido.label_tag}}
+            {% render_field form.apellido %}
           </div>
           <div class="input-field">
-            <label for="Correo">Correo</label>
-            <input id="Correo" type="text" class="validate">
+            {{form.cedula.label_tag}}
+            {% render_field form.cedula %}
           </div>
           <div class="input-field">
-            <label for="telefono">Teléfono</label>
-            <input id="telefono" type="text" class="validate">
+            {{form.telefono.label_tag}}
+            {% render_field form.telefono %}
           </div>
+
+          <p>
+            {% render_field form.solvencia %}
+            {{form.solvencia.label_tag}}
+          </p>
 
           <div class="file-field input-field">
             <div class="btn blue">
               <span>Archivo</span>
-              <input type="file">
+              {% render_field form.archivo_adjunto %}
             </div>
             <div class="file-path-wrapper">
               <input class="file-path validate" type="text">
@@ -59,7 +62,7 @@
                 <button type="submit" class="btn btn-floating right-align green"><i class="material-icons">check</i></a>
             </div>
           </div>
-        </form> -->
+        </form>
       </div>
     </div>
   </div>

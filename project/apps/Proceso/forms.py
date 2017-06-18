@@ -16,3 +16,13 @@ class SolicitudForm(forms.ModelForm):
             'correo',
             'archivo_adjunto',
         ]
+
+        label ={
+            'nombre':'Nombre',
+            'apellido':'Apellido',
+            'cedula':'Cédula',
+            'telefono':'Teléfono',
+            'solvencia':'solvencia',
+            'correo':'Correo',
+            'archivo_adjunto':'Archivo',
+        }

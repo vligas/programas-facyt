@@ -100,3 +100,11 @@ body {
 {
     margin:0px 20px;
 }
+
+.text-card{
+  text-align: justify;
+}
+
+.color-card{
+  background-color: rgb(40, 139, 175) !important;
+}
