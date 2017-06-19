@@ -37,7 +37,7 @@
                 <td>{{solicitud.telefono}}</td>
                 <td>{{solicitud.get_estatus}}</td>
                 <td><i class="fa fa-file-pdf-o fa-2x red-text"></i></td>
-                <td><i class="fa fa-cog fa-2x grey-text text-darken-2"></i></td>
+                <td><a href="{% url 'confirmar_email' solicitud.pk %}"><i class="fa fa-cog fa-2x grey-text text-darken-2"></i></a></td>
               </tr>
           {% endfor %}
           </tbody>

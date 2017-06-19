@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from . import forms
 from . import models
@@ -36,3 +36,9 @@ def crear_solicitud(request):
     else:
         form = forms.SolicitudForm()
         return HttpResponse("Errorsito :(")
+
+def recibido(request, id):
+    solicitud = get_object_or_404(models.Solicitud, pk=id)
+    solicitud.correo_recibido = True
+    solicitud.save()
+    return redirect('home')
