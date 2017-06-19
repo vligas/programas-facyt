@@ -1,11 +1,12 @@
 from django.conf.urls import url
+from django.contrib.auth.decorators import login_required
 
 from . import views
 
 
 urlpatterns = [
 
-    url(r'^$', views.home, name='home'),
-    url(r'^crear_solicitud/$', views.crear_solicitud, name='crear_solicitud'),
-    url(r'^solicitud/$', views.solicitud, name='solicitud'),
+    url(r'^$', login_required(views.home), name='home'),
+    url(r'^crear_solicitud/$', login_required(views.crear_solicitud), name='crear_solicitud'),
+    url(r'^solicitud/$', login_required(views.solicitud), name='solicitud'),
 ]
