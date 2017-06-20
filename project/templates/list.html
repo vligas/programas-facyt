@@ -37,7 +37,15 @@
                 <td>{{solicitud.telefono}}</td>
                 <td>{{solicitud.get_estatus}}</td>
                 <td><i class="fa fa-file-pdf-o fa-2x red-text"></i></td>
+                {% if not solicitud.correo_recibido %}
                 <td><a href="{% url 'confirmar_email' solicitud.pk %}"><i class="fa fa-cog fa-2x grey-text text-darken-2"></i></a></td>
+                {% elif not solicitud.correo_procesado %}
+                <td><a href=""><i class="fa fa-exclamation-triangle fa-2x yellow-text text-darken-2"</i></a></td>
+                {% elif not solicitud.correo_listo %}
+                <td><a href=""><i class="fa fa-envelope-open fa-2x blue-text text-darken-2"></i></a></td>
+                {% else %}
+                <td><a href=""><i class="fa fa-check-square-o fa-2x green-text text-darken-2"></i></a></td>
+                {% endif %}
               </tr>
           {% endfor %}
           </tbody>

@@ -33,6 +33,7 @@ class Solicitud(models.Model):
     fecha_procesada = models.DateTimeField(null=True, blank=True)#Fecha al momento de procesar
     correo_recibido = models.BooleanField(default=False)#Logico que informa si el correo fue recibido
     correo_procesado = models.BooleanField(default=False)#logico que informa si el correo fue procesado
+    correo_listo = models.BooleanField(default=False)#logico que de que se envio el correo que informa si ya su solicitud esta lista y puede ir a buscarla
     estatus = models.CharField(default = 'R', choices=ESTATUS_CHOICES, max_length=10)#estatus actual de la Solicitud
     lista = models.FileField(upload_to=path_solicitud, null=True, blank=True)#Lista de programas de la persona
 
