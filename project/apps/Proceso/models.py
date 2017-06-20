@@ -56,3 +56,4 @@ class Programas(models.Model):
     periodo_annio = models.CharField(max_length=10)#por ejemplo: 1-2016
     #archivo = models.ForeignKey(Archivo)
     solicitudes = models.ManyToManyField(Solicitud, related_name="programas")
+    nombre = models.CharField(max_length=50)
