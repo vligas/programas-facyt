@@ -17,7 +17,13 @@ def home(request):
     }
     return render(request, 'list.html', context)
 
-def solicitud(request):
+def solicitud(request, id):
+
+    form = forms.ProcesarForm(request.POST)
+    if form.is_valid():
+        solocitud = form.save(commit=False)
+        return HttpResponse("Hola")
+
     return render(request,'solicitud.html')
 
 def crear_solicitud(request):

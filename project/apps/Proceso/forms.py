@@ -3,7 +3,6 @@ from . import models
 
 class SolicitudForm(forms.ModelForm):
 
-
     class Meta:
         model = models.Solicitud # ERROR AQUI NO SE INSTANCIA
 
@@ -26,3 +25,10 @@ class SolicitudForm(forms.ModelForm):
             'correo':'Correo',
             'archivo_adjunto':'Archivo',
         }
+
+class ProcesarForm(forms.Form):
+
+    periodo = forms.CharField(max_length=100)
+    materias = forms.CharField(max_length=100)
+
+    
