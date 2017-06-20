@@ -19,13 +19,20 @@ def home(request):
 
 def solicitud(request, id):
 
-    form = forms.ProcesarForm(request.POST)
-    context = {
-        'form': form,
-    }
-    if form.is_valid():
-        # solocitud = form.save(commit=False)
-        return HttpResponse("Hola")
+    solicitud = get_object_or_404(models.Solicitud, pk=id)
+    periodo, annio = cleaned_data.get('periodo').split('-')
+    materias = cleaned_data.get('materias').split(',')
+    materias = [ x.strip() for x in materias]
+    result = ""
+
+    programas = Programas.objects.filter(periodo_electivo = periodo, periodo_annio = annio)
+
+    for programa in programas:
+         if programa.codigo_materia in materia:
+             result.append(programa)
+             materias.remove(programa.codigo_materia)
+             solicitud.programas.add(programa)
+
 
     return render(request,'solicitud.html', context)
 

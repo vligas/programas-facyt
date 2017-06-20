@@ -27,8 +27,5 @@ class SolicitudForm(forms.ModelForm):
         }
 
 class ProcesarForm(forms.Form):
-
     periodo = forms.CharField(max_length=100)
     materias = forms.CharField(max_length=100)
-
-    
