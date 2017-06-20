@@ -20,11 +20,14 @@ def home(request):
 def solicitud(request, id):
 
     form = forms.ProcesarForm(request.POST)
+    context = {
+        'form': form,
+    }
     if form.is_valid():
-        solocitud = form.save(commit=False)
+        # solocitud = form.save(commit=False)
         return HttpResponse("Hola")
 
-    return render(request,'solicitud.html')
+    return render(request,'solicitud.html', context)
 
 def crear_solicitud(request):
     form = forms.SolicitudForm()

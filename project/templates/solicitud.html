@@ -12,7 +12,7 @@
       <div class="container">
         <form method="post">
           {% csrf_token %}
-          <div class="input-field">
+          <!-- <div class="input-field">
             <label for="nombre">Periodo</label>
             <input id="nombre" type="text" class="validate">
           </div>
@@ -23,7 +23,9 @@
           <br>
           <div class="btn-group center-align">
               <a href="" class="btn btn-floating right-align blue"><i class="material-icons">check</i></a>
-          </div>
+          </div> -->
+          {{ form.as_p }}
+          <button type="submit">Submit</button>
         </form>
       </div>
     </div>
