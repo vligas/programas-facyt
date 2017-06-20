@@ -12,6 +12,7 @@
         <script src="https://use.fontawesome.com/3aa6c402c1.js"></script>
         <!-- Material Icons -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/tipped.css' %}">
     </head>
     <body>
       <div id="content">
@@ -20,11 +21,18 @@
 
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script src="{% static 'js/materialize.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'js/tipped.js' %}"></script>
       <script type="text/javascript">
-        $(document).ready(function(){
-          $('.modal').modal()
-        });
+      $(document).ready(function(){
+        $('.modal').modal()
+      });
 
+      $(document).ready(function() {
+        Tipped.create('.recibido', 'Falta enviar correo de recibido');
+        Tipped.create('.procesado', 'Falta enviar correo de procesado');
+        Tipped.create('.listo', 'Falta enviar correo de ya esta listo');
+        Tipped.create('.entregado', 'Falta confirmar si ya fue retirado');
+      });
       </script>
     </body>
 </html>
