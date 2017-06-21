@@ -42,18 +42,53 @@ class Solicitud(models.Model):
 
     def get_estatus(self):
         return self.get_estatus_display()
-# class Archivo(models.Model):
-#     documento = FileField(upload_to='STRING')
 
-    #def path_archivo(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    #return 'Solicitudes/{}_{}/{}'.format(instance.Solicitud.pk,instance.Solicitud.nombre.replace(' ','_'), filename)
+    def programas_ordenados(self):
+        query = self.programas.all()
+        result = []
+
+        for x in query:
+            index = -1
+            band = False
+            periodo_format = '{}-{}'.format(x.periodo_electivo, x.periodo_annio)
+
+            for y in result:
+                index += 1
+
+                if y['periodo'] == periodo_format:
+                    band = True
+                    break
+
+
+
+            if not band:
+
+                result.append({
+                    'periodo' : periodo_format,
+                    'materias' : [x.codigo_materia],
+                })
+
+            else:
+                result[index]['materias'].append(x.codigo_materia)
+
+        return result
+
+
+class Archivo(models.Model):
+    documento = models.FileField(upload_to='programas')
+
+    def __str__(self):
+        return self.documento.name
+
 
 
 class Programas(models.Model):
     codigo_materia =  models.CharField(max_length=15)# ejemplo: TAO-202
     periodo_electivo = models.CharField(max_length=10)# Estos 2 campos son para algo como
     periodo_annio = models.CharField(max_length=10)#por ejemplo: 1-2016
-    #archivo = models.ForeignKey(Archivo)
+    archivo = models.ForeignKey(Archivo, null=True, blank=True)
     solicitudes = models.ManyToManyField(Solicitud, related_name="programas")
     nombre = models.CharField(max_length=50)
+
+    def __str__(self):
+        return '{} - {}'.format(self.codigo_materia, self.nombre)

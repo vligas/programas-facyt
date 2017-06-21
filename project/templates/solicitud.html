@@ -31,7 +31,7 @@
     </div>
 
     <div class="col s12 m12 l6">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col s10 offset-s1">
           <br>
           <br>
@@ -43,7 +43,15 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
+      {% comment %}
+      {% for programa in solicitud.programas.all %}
+      {{programa}}
+      {% endfor %}
+      {% endcomment %}
+      {{ solicitud.programas_ordenados }}
+      <br />
+      <a href="{% url 'descargar_programas' solicitud.pk %}">Descargar</a>
       <!-- <h5 class="center-align">Programas listos para descargar <a href="" class="btn btn-floating right-align blue"><i class="material-icons">file_download</i></a> </h5>
       <br>
       <div class="scroll-def">

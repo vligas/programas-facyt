@@ -37,6 +37,7 @@
                 <td>{{solicitud.telefono}}</td>
                 <td>{{solicitud.get_estatus}}</td>
                 <td><i class="fa fa-file-pdf-o fa-2x red-text"></i></td>
+                {% comment %}
                 {% if not solicitud.correo_recibido %}
                 <td><a href="#recibido"><i class="fa fa-cog fa-2x grey-text text-darken-2 recibido"></i></a></td>
                 {% elif not solicitud.correo_procesado %}
@@ -46,6 +47,8 @@
                 {% else %}
                 <td><a href="#retirado"><i class="fa fa-check-square-o fa-2x green-text text-darken-2 entregado"></i></a></td>
                 {% endif %}
+                {% endcomment %}
+                <td><a href="{% url 'solicitud' solicitud.pk %}">procesar</a></td>
               </tr>
 
               <div class="modal modal-acciones" id="recibido">

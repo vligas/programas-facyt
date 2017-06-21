@@ -17,10 +17,6 @@ class Fecha:
         return self.__str__()
 
 
-class Programa:
-    def __init__(self, codigo, curso):
-        self.codigo = int(codigo)
-        self.curso = int(curso)
 
 
 class Command(BaseCommand):
@@ -47,8 +43,27 @@ class Command(BaseCommand):
 
                 valor = sheet.cell(i,j).value
                 if(valor != ""):
-                    print(valor)
-                    matrizFechas[j-1].programas.append(valor)
+                    matrizFechas[j-1].programas.append(str(valor))
 
 
-        print(matrizFechas[0].programas)
+
+        for i in range(len(matrizFechas)):
+            index = 0
+            while index < len(matrizFechas[i].programas):
+
+                if(str(matrizFechas[i].programas[index][0]) != '['):
+                    index += 1
+                if(index < len(matrizFechas[i].programas) -1 ):
+                    codigo = matrizFechas[i].programas[index].strip('[').strip(']')
+                    nombre = matrizFechas[i].programas[index+1]
+                    periodo = matrizFechas[i].periodo
+                    ano = matrizFechas[i].ano
+                    programa = models.Programas.objects.create(
+                        codigo_materia = codigo,
+                        nombre = nombre,
+                        periodo_electivo = periodo,
+                        periodo_annio = ano,
+                    )
+
+                    print('{} created'.format(programa))
+                    index += 4

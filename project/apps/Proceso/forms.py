@@ -29,3 +29,12 @@ class SolicitudForm(forms.ModelForm):
 class ProcesarForm(forms.Form):
     periodo = forms.CharField(max_length=100)
     materias = forms.CharField(max_length=100)
+
+    def clean_periodo(self):
+
+        data = self.cleaned_data['periodo']
+
+        if(data.count('-') != 1):
+            raise forms.ValidationError('Invalid format.')
+
+        return data
