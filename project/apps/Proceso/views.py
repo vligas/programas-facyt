@@ -6,6 +6,12 @@ from io import BytesIO
 import os
 import zipfile
 
+
+from PyPDF2 import PdfFileWriter, PdfFileReader
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import portrait
+
+
 from . import forms
 from . import models
 # Create your views here.
@@ -88,12 +94,21 @@ def descargar_programas(request, id):
     solicitud = get_object_or_404(models.Solicitud, pk=id)
     programas = solicitud.programas.all()
     result = BytesIO()
-    filenames = []
+    filepaths = []
 
     for x in programas:
-        filenames.append(os.path.join(settings.BASE_DIR, x.archivo.documento.url.lstrip('/')))
+        filepaths.append(os.path.join(settings.BASE_DIR, x.archivo.documento.url.lstrip('/')))
 
-    print(settings.BASE_DIR)
+
+    # CREO EL HEADER QUE SE VA A AÑADIR A LOS PDFS
+    packet = BytesIO()
+    cv = canvas.Canvas(packet)
+    cv.drawString(350, 820, "{} {} - {}".format(solicitud.nombre, solicitud.apellido, solicitud.cedula))
+
+    cv.save()
+
+    packet.seek(0)
+
 
     # Folder name in ZIP archive which contains the above files
     # E.g [thearchive.zip]/somefiles/file2.txt
@@ -104,13 +119,32 @@ def descargar_programas(request, id):
     # The zip compressor
     zf = zipfile.ZipFile(result, "w")
 
-    for fpath in filenames:
+    for fpath in filepaths:
+        output_file = PdfFileWriter()
+        input_file = PdfFileReader(open(fpath, "rb"))
+        # Number of pages in input document
+        page_count = input_file.getNumPages()
+        watermark = PdfFileReader(packet)
+        # Go through all the input file pages to add a watermark to them
+        for page_number in range(page_count):
+            print ("Watermarking page {} of {}".format(page_number, page_count))
+            # merge the watermark with the page
+            input_page = input_file.getPage(page_number)
+            input_page.mergePage(watermark.getPage(0))
+            # add page from input file to output document
+            output_file.addPage(input_page)
+
+        # finally, write "output" to document-output.pdf
+        output_stream = BytesIO()
+        output_file.write(output_stream)
+
+
         # Calculate path for file in zip
         fdir, fname = os.path.split(fpath)
-        zip_path = os.path.join(zip_subdir, fname)
+        # zip_path = os.path.join(zip_subdir, output_stream)
 
         # Add file, at correct path
-        zf.write(fpath, zip_path)
+        zf.writestr(fname, output_stream.getvalue())
 
     # Must close zip for all contents to be written
     zf.close()
