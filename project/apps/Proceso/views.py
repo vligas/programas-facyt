@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.conf import settings
+from django.template.loader import get_template
+from django.core import files
 
 from io import BytesIO
 import os
 import zipfile
 
-
+from xhtml2pdf import pisa
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import portrait
@@ -146,6 +148,15 @@ def descargar_programas(request, id):
         # Add file, at correct path
         zf.writestr(fname, output_stream.getvalue())
 
+
+    template = get_template('pdfs/lista_programas.html')
+    html = template.render({'solicitud':solicitud})
+    lista_programas = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), lista_programas)
+
+
+    zf.writestr('LISTA.pdf', lista_programas.getvalue())
+    solicitud.lista.save('{}_{}_{}.pdf'.format(solicitud.pk,solicitud.nombre,solicitud.apellido), files.File(lista_programas))
     # Must close zip for all contents to be written
     zf.close()
 

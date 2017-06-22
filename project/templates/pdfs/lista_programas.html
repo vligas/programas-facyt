@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>LISTA</title>
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               text-align: center;
+               padding: 10px 20px 0px 20px;
+            }
+            table
+            {
+              width:300px;
+            }
+            td, th
+            {
+              border:1px solid black;
+              height: 40px;
+              text-align: center;
+              vertical-align: middle;
+            }
+
+            .codigo
+            {
+              width:40px;
+            }
+            .nombre
+            {
+              width:260px;  
+            }
+        </style>
+    </head>
+    <body>
+      <div class="title">LISTA DE PROGRAMAS DESCARGADOS</div>
+      <br />
+      <br />
+      <table>
+        {% for item in solicitud.programas_ordenados %}
+          <tr class="periodo">
+            <th colspan="2">
+              {{ item.periodo }}
+            </th>
+          </tr>
+          {% for x in item.materias %}
+            <tr>
+              <td class="codigo">{{ x.codigo_materia }}</td>
+              <td class="nombre">{{ x.nombre }}</td>
+            </tr>
+          {% endfor %}
+        {% endfor %}
+      </table>
+    </body>
+</html>

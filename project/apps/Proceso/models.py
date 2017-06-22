@@ -65,11 +65,11 @@ class Solicitud(models.Model):
 
                 result.append({
                     'periodo' : periodo_format,
-                    'materias' : [x.codigo_materia],
+                    'materias' : [x],
                 })
 
             else:
-                result[index]['materias'].append(x.codigo_materia)
+                result[index]['materias'].append(x)
 
         return result
 
@@ -87,7 +87,7 @@ class Programas(models.Model):
     periodo_electivo = models.CharField(max_length=10)# Estos 2 campos son para algo como
     periodo_annio = models.CharField(max_length=10)#por ejemplo: 1-2016
     archivo = models.ForeignKey(Archivo, null=True, blank=True)
-    solicitudes = models.ManyToManyField(Solicitud, related_name="programas")
+    solicitudes = models.ManyToManyField(Solicitud, related_name="programas", blank=True)
     nombre = models.CharField(max_length=50)
 
     def __str__(self):
