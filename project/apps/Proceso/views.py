@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.conf import settings
+from django.utils import timezone
 
 from io import BytesIO
 import os
@@ -28,41 +29,86 @@ def home(request):
     }
     return render(request, 'list.html', context)
 
+# ACCIONES BASICAS
+def recibido(request, id):
+    solicitud = get_object_or_404(models.Solicitud, pk=id)
+
+    if solicitud.estatus == 'R' and not solicitud.correo_recibido:
+        solicitud.correo_recibido = True
+        solicitud.save()
+
+    return redirect('home')
+
+def procesado(request, id):
+    solicitud = get_object_or_404(models.Solicitud, pk=id)
+
+    if solicitud.estatus == 'P'  and not solicitud.correo_procesado:
+        solicitud.correo_procesado = True
+        solicitud.estatus = 'V'
+        solicitud.save()
+
+    return redirect('home')
+
+def verificado(request, id):
+    solicitud = get_object_or_404(models.Solicitud, pk=id)
+
+    if solicitud.estatus == 'V':
+        solicitud.estatus = "EF"
+        solicitud.save()
+
+    return redirect('home')
+
+
+def listo(request, id):
+    solicitud = get_object_or_404(models.Solicitud, pk=id)
+
+    if solicitud.estatus == 'EF' and not solicitud.correo_listo:
+        solicitud.estatus = "E"
+        solicitud.correo_listo = True
+        solicitud.fecha_firma = timezone.now()
+        solicitud.save()
+
+    return redirect('home')
+
 def solicitud(request, id):
 
     solicitud = get_object_or_404(models.Solicitud, pk=id)
-    form = forms.ProcesarForm()
 
-    if request.method == "POST":
-        form = forms.ProcesarForm(request.POST)
+    if solicitud.estatus == 'R' and solicitud.correo_recibido:
+        form = forms.ProcesarForm()
 
-        if form.is_valid():
-            periodo, annio = form.cleaned_data.get('periodo').split('-')
-            materias = form.cleaned_data.get('materias').split(',')
-            materias = [ x.strip() for x in materias]
-            result = []
+        if request.method == "POST":
+            form = forms.ProcesarForm(request.POST)
 
-            programas = models.Programas.objects.filter(periodo_electivo = periodo, periodo_annio = annio)
+            if form.is_valid():
+                periodo, annio = form.cleaned_data.get('periodo').split('-')
+                materias = form.cleaned_data.get('materias').split(',')
+                materias = [ x.strip() for x in materias]
+                result = []
 
-            if programas:
-                for programa in programas:
-                     if programa.codigo_materia in materias:
-                         result.append(programa)
-                         materias.remove(programa.codigo_materia)
-                         solicitud.programas.add(programa)
+                programas = models.Programas.objects.filter(periodo_electivo = periodo, periodo_annio = annio)
 
-                for materia in materias:
-                    form.add_error(None, 'La materia "{}" no concuerda con el periodo {}-{}'.format(materia, periodo, annio))
-            else:
-                form.add_error('periodo', 'No existe el periodo {}-{}'.format(periodo,annio))
+                if programas:
+                    for programa in programas:
+                         if programa.codigo_materia in materias:
+                             result.append(programa)
+                             materias.remove(programa.codigo_materia)
+                             solicitud.programas.add(programa)
 
-    context = {
-        'form' : form,
-        'solicitud' : solicitud,
-    }
+                    for materia in materias:
+                        form.add_error(None, 'La materia "{}" no concuerda con el periodo {}-{}'.format(materia, periodo, annio))
+                else:
+                    form.add_error('periodo', 'No existe el periodo {}-{}'.format(periodo,annio))
+
+        context = {
+            'form' : form,
+            'solicitud' : solicitud,
+        }
 
 
-    return render(request,'solicitud.html', context)
+        return render(request,'solicitud.html', context)
+    else:
+        return redirect('home')
 
 def crear_solicitud(request):
     form = forms.SolicitudForm()
@@ -80,12 +126,6 @@ def crear_solicitud(request):
     else:
         form = forms.SolicitudForm()
         return HttpResponse("Errorsito :(")
-
-def recibido(request, id):
-    solicitud = get_object_or_404(models.Solicitud, pk=id)
-    solicitud.correo_recibido = True
-    solicitud.save()
-    return redirect('home')
 
 
 
@@ -154,5 +194,10 @@ def descargar_programas(request, id):
     # ..and correct content-disposition
     resp['Content-Disposition'] = 'attachment; filename={}'.format(zip_filename)
     resp['Content-length'] = result.tell()
+
+    if solicitud.estatus == 'R':
+        solicitud.estatus = 'P'
+        solicitud.fecha_procesada = timezone.now()
+        solicitud.save()
 
     return resp

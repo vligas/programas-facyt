@@ -37,20 +37,26 @@
                 <td>{{solicitud.telefono}}</td>
                 <td>{{solicitud.get_estatus}}</td>
                 <td><i class="fa fa-file-pdf-o fa-2x red-text"></i></td>
-                {% comment %}
-                {% if not solicitud.correo_recibido %}
-                <td><a href="#recibido"><i class="fa fa-cog fa-2x grey-text text-darken-2 recibido"></i></a></td>
-                {% elif not solicitud.correo_procesado %}
-                <td><a href="#procesado"><i class="fa fa-exclamation-triangle fa-2x yellow-text text-darken-2 procesado"</i></a></td>
-                {% elif not solicitud.correo_listo %}
-                <td><a href="#listo"><i class="fa fa-envelope-open fa-2x blue-text text-darken-2 listo"></i></a></td>
-                {% else %}
-                <td><a href="#retirado"><i class="fa fa-check-square-o fa-2x green-text text-darken-2 entregado"></i></a></td>
-                {% endif %}
-                {% endcomment %}
-                <td><a href="{% url 'solicitud' solicitud.pk %}">procesar</a></td>
-              </tr>
 
+                {# <td><a href="{% url 'solicitud' solicitud.pk %}">procesar</a></td>#}
+                <td>
+                  {% if solicitud.estatus == 'R'  and  not solicitud.corre_recibido %}
+                  <!-- CONFIRMA EL CORREO DE RECIBIDO -->
+                  {% elif  solicitud.estatus == 'R' and solicitud.correo_recibido %}
+                  <!-- EL LINK A PROCESAR -->
+                  {% elif solicitud.estatus == 'P' and not solicitud.correo_procesado %}
+                  <!-- CONFIRMAR QUE ENVIO EL CORREO DE PROCESADO (CAMBIA A VERIFICACION)-->
+                  {% elif  solicitud.estatus == 'V' %}
+                  <!-- CONFIRMA VERIFIFACION Y PASA AL ESTADO ESPERAR FIRMA -->
+                  {% elif solicitud.estatus == 'EF' and not solicitud.correo_listo %}
+                  <!-- CdoONFIRMA ENVIO DEL CORREO DE QUE ESTA LISTO -->
+                  {% else  %}
+                  <!-- CONFIRMA QUE EL ESTUDIANTE YA VINO A BUSCAr LOS PROGRAMAS
+                  Y CAMBIA EL ESTATUS A FINALIZADO -->
+                  {% endif %}
+
+                </td>
+              </tr
               <div class="modal modal-acciones" id="recibido">
                 <div class="modal-content">
                   <h5 class="center-align">¿Envio el correo para informar que ya fue recibida la solicitud?</h5>

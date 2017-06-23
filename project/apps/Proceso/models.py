@@ -5,8 +5,11 @@ from django.contrib.auth.models import User #Necesario para el User de la relaci
 # Create your models here.
 ESTATUS_CHOICES = ( #Posibles estatus de la Solicitud
     ('R','Recibido'),
-    ('E','Entregado'),
-    ('P','En Proceso'),
+    ('P','Procesado'),
+    ('V', 'Verificacion'),
+    ('EF', 'A la espera de firma'),
+    ('E','Entrega'),
+    ('F', 'Finalizado'),
 )
 # BUG DEBEN SER TUPLAS, NO LO ERAN
 
