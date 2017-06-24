@@ -7,89 +7,139 @@
 {% block content_two %}
   <div>
     <div class="row">
-      <div class="col s12 m4 l4 ">
-        <div class="input-field">
+      <form class="form col s12" method="GET">
+        <div class="input-field col s6 l5">
         <i class="prefix material-icons">search</i>
-          <input id="search" type="text" required>
-          <label for="search">Busqueda</label>
+          <input id="search" type="text" name="q">
         </div>
-      </div>
+        <div class="input-field col s6 l2">
+          <select name="estatus">
+            <option value="" disabled selected>Estatus</option>
+            <option value="R">Recibida</option>
+            <option value="P">Procesada</option>
+            <option value="V">Verificacion</option>
+            <option value="EF">Espera de firma</option>
+            <option value="FI">Firmada</option>
+            <option value="E">Entregada</option>
+            <option value="F">Finalizada</option>
+          </select>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-flat">Buscar</button>
+      </form>
 
       <div class="col s12" >
-        <table class="centered responsive-table">
+        <table class="responsive-table">
           <thead>
             <tr>
+                <th>#</th>
                 <th>Nombre</th>
                 <th>Cédula</th>
                 <th>Correo</th>
                 <th>Teléfono</th>
-                <th>Estatus</th>
-                <th>PDF</th>
-                <th>Acciones</th>
+                <th class="center-align">Estatus</th>
+                <th class="center-align">PDF</th>
+                <th class="center-align">Acciones</th>
             </tr>
           </thead>
           <tbody>
           {% for solicitud in solicitudes  %}
               <tr>
-                <td>{{solicitud}}</td>
-                <td>{{solicitud.cedula}}</td>
-                <td>{{solicitud.correo}}</td>
-                <td>{{solicitud.telefono}}</td>
-                <td>{{solicitud.get_estatus}}</td>
-                <td><i class="fa fa-file-pdf-o fa-2x red-text"></i></td>
-                {% comment %}
-                {% if not solicitud.correo_recibido %}
-                <td><a href="#recibido"><i class="fa fa-cog fa-2x grey-text text-darken-2 recibido"></i></a></td>
-                {% elif not solicitud.correo_procesado %}
-                <td><a href="#procesado"><i class="fa fa-exclamation-triangle fa-2x yellow-text text-darken-2 procesado"</i></a></td>
-                {% elif not solicitud.correo_listo %}
-                <td><a href="#listo"><i class="fa fa-envelope-open fa-2x blue-text text-darken-2 listo"></i></a></td>
-                {% else %}
-                <td><a href="#retirado"><i class="fa fa-check-square-o fa-2x green-text text-darken-2 entregado"></i></a></td>
-                {% endif %}
-                {% endcomment %}
-                <td><a href="{% url 'solicitud' solicitud.pk %}">procesar</a></td>
-              </tr>
-
-              <div class="modal modal-acciones" id="recibido">
-                <div class="modal-content">
-                  <h5 class="center-align">¿Envio el correo para informar que ya fue recibida la solicitud?</h5>
-                  <div class="center-align">
-                    <a href="{% url 'confirmar_email' solicitud.pk %}" class="btn green">Si</a>
-                    <a href="{% url 'home' %}" class="btn red">No</a>
+                <td>{{solicitud.pk}}</td>
+                <td class="align-text-left">{{solicitud}}</td>
+                <td class="align-text-left">{{solicitud.cedula}}</td>
+                <td class="align-text-left">{{solicitud.correo}}</td>
+                <td class="align-text-left">{{solicitud.telefono}}</td>
+                <td>
+                  <div class="estatus-display center-align">
+                    <div class="estatus-circles">
+                      <div class="estatus-circle estatus-R {% if solicitud.estatus == 'R' %} blue lighten-3  {% else %} grey lighten-3 {% endif %}"></div>
+                      <div class="estatus-circle estatus-P {% if solicitud.estatus == 'P' %} blue lighten-2 {% else %} grey lighten-3 {% endif %}"></div>
+                      <div class="estatus-circle estatus-V {% if solicitud.estatus == 'V' %} blue lighten-1 {% else %} grey lighten-3 {% endif %}"></div>
+                      <div class="estatus-circle estatus-EF {% if solicitud.estatus == 'EF' %} blue darken-1 {% else %} grey lighten-3 {% endif %}"></div>
+                      <div class="estatus-circle estatus-E {% if solicitud.estatus == 'FI' %} blue darken-2 {% else %} grey lighten-3 {% endif %}"></div>
+                      <div class="estatus-circle estatus-E {% if solicitud.estatus == 'E' %} blue darken-3 {% else %} grey lighten-3 {% endif %}"></div>
+                      <div class="estatus-circle estatus-F {% if solicitud.estatus == 'F' %} blue darken-4 {% else %} grey lighten-3 {% endif %}"></div>
+                    </div>
+                    <div class="estatus-text chip grey lighten-4 blue-text
+                    {% if solicitud.estatus == 'R' %} text-lighten-3
+                    {% elif solicitud.estatus == 'P' %} text-lighten-2
+                    {% elif solicitud.estatus == 'V' %} text-lighten-1
+                    {% elif solicitud.estatus == 'EF' %} text-darken-1
+                    {% elif solicitud.estatus == 'FI' %} text-darken-2
+                    {% elif solicitud.estatus == 'E' %} text-darken-3
+                    {% elif solicitud.estatus == 'F' %} text-darken-4
+                    {% endif %}">
+                      {{solicitud.get_estatus}}
+                    </div>
                   </div>
-                </div>
-              </div>
+                </td>
+                <td class="center-align">
+                  <a href="{{solicitud.archivo_adjunto.url}}" target="_blank"><i class="fa fa-file-pdf-o fa-2x red-text"></i></a>
+                  {% if solicitud.lista %}
+                    <a href="{{solicitud.lista.url}}" target="_blank"><i class="fa fa-file-pdf-o fa-2x amber-text"></i></a>
+                  {% endif %}
+                </td>
 
-              <div class="modal modal-acciones" id="procesado">
-                <div class="modal-content">
-                  <h5 class="center-align">¿Envio el correo para informar que ya fue procesada la solicitud?</h5>
-                  <div class="center-align">
-                    <a href="" class="btn green">Si</a>
-                    <a href="{% url 'home' %}" class="btn red">No</a>
-                  </div>
-                </div>
-              </div>
+                {# <td><a href="{% url 'solicitud' solicitud.pk %}">procesar</a></td>#}
+                <td class="center-align">
+                  {% if solicitud.estatus == 'R'  and solicitud.correo_recibido is False %}
+                  <!-- CONFIRMA EL CORREO DE RECIBIDO -->
+                  <a href="#question-modal" data-question="¿Has enviado el correo al estudiante confirmando que su solicitud fue recibida?" data-url="{% url 'confirmar_email_recibido' solicitud.pk %}" class="tipped" data-position="top" data-tooltip="Confirmar email recibido">
+                    <span class="fa-stack">
+                      <i class="fa fa-envelope-o  fa-stack-2x grey-text"></i>
+                      <i class="fa fa-check-circle fa-stack-1x green-text"></i>
+                    </span>
+                  </a>
+                  {% elif  solicitud.estatus == 'R' and solicitud.correo_recibido %}
+                  <!-- EL LINK A PROCESAR -->
+                  <a href="{% url 'solicitud' solicitud.pk %}" class="tipped" data-position="top" data-tooltip="Procesar">
+                    <i class="fa fa-gear grey-text fa-2x"></i>
+                  </a>
+                  {% elif solicitud.estatus == 'P' and solicitud.correo_procesado is False %}
+                  <!-- CONFIRMAR QUE ENVIO EL CORREO DE PROCESADO (CAMBIA A VERIFICACION)-->
+                  <a href="#question-modal" data-url="{% url 'confirmar_email_procesado' solicitud.pk %}" data-question="¿Has enviado el correo al estudiante con sus programas?" class="tipped" data-position="top" data-tooltip="Confirmar correo de procesado">
+                    <span class="fa-stack">
+                      <i class="fa fa-gear  fa-stack-2x grey-text"></i>
+                      <i class="fa fa-check-circle fa-stack-1x green-text"></i>
+                    </span>
+                  </a>
+                  {% elif  solicitud.estatus == 'V' %}
+                  <!-- CONFIRMA VERIFIFACION Y PASA AL ESTADO ESPERAR FIRMA -->
+                  <a href="#question-modal" data-url="{% url 'confirmar_verificado' solicitud.pk %}" data-question="¿Has verificado que los programas traidos por el estudiante concuerden con la informacion en esta pagina?" class="tipped" data-position="top" data-tooltip="Confirmar verificacion">
+                    <i class="fa fa-thumbs-o-up fa-2x green-text"></i>
+                  </a>
+                  {% elif solicitud.estatus == 'EF' %}
 
-              <div class="modal modal-acciones" id="listo">
-                <div class="modal-content">
-                  <h5 class="center-align">¿Envio el correo para informar que ya esta lista la solicitud?</h5>
-                  <div class="center-align">
-                    <a href="" class="btn green">Si</a>
-                    <a href="{% url 'home' %}" class="btn red">No</a>
-                  </div>
-                </div>
-              </div>
+                  <a href="#question-modal" data-url="{% url 'confirmar_firma' solicitud.pk %}" data-question="¿Los programas ya han sido firmados?" class="tipped" data-position="top" data-tooltip="Confirmar que los programas fueron firmados">
+                    <i class="fa fa-pencil fa-2x green-text"></i>
+                  </a>
+                  {% elif solicitud.estatus == 'FI' and solicitud.correo_listo is False %}
+                  <!-- CONFIRMA ENVIO DEL CORREO DE QUE ESTA LISTO -->
+                  <a href="#question-modal" data-url="{% url 'confirmar_listo' solicitud.pk %}" data-question="¿has enviado un correo al estudiante para notificarle que busque los programas?" class="tipped" data-position="top" data-tooltip="Confirmar que el estudiante fue notificado">
+                    <i class="fa fa-reply fa-2x green-text"></i>
+                  </a>
+                  {% elif solicitud.estatus == 'E' and solicitud.correo_listo %}
+                  <!-- CONFIRMA QUE EL ESTUDIANTE YA VINO A BUSCAr LOS PROGRAMAS
+                  Y CAMBIA EL ESTATUS A FINALIZADO -->
+                  <a href="#question-modal" data-url="{% url 'confirmar_entregado' solicitud.pk %}" data-question="¿El estudiante ha venido a buscar los programas?" class="tipped" data-position="top" data-tooltip="Confirmar que el programa fue entregado">
+                    <i class="fa fa-handshake-o fa-2x green-text"></i>
+                  </a>
+                  {% endif %}
 
-              <div class="modal modal-acciones" id="retirado">
-                <div class="modal-content">
-                  <h5 class="center-align">¿Ya fue retirada la solicitud?</h5>
-                  <div class="center-align">
-                    <a href="" class="btn green">Si</a>
-                    <a href="{% url 'home' %}" class="btn red">No</a>
-                  </div>
-                </div>
-              </div>
+
+                  {% if solicitud.estatus != 'R' %}
+                    <a href="{% url 'descargar_programas' solicitud.pk %}" class="tipped" data-position="top" data-tooltip="Descargar programas ascociado">
+                      <i class="fa fa-download fa-2x"></i>
+                    </a>
+                  {% endif %}
+
+                  <a href="#info-modal" class="tipped" data-position="top" data-tooltip="Informacion adicional" data-uc="{{solicitud.usuario_creador}}" data-fc="{{solicitud.fecha_creacion}}" data-up="{{solicitud.usuario_procesador}}" data-fp="{{solicitud.fecha_procesada}}" data-ff="{{solicitud.fecha_firma}}">
+                    <i class="fa fa-info-circle fa-2x blue-text text-darken-2"></i>
+                  </a>
+
+                </td>
+              </tr
           {% endfor %}
 
 
@@ -98,4 +148,50 @@
       </div>
     </div>
   </div>
+
+  <div class="modal question-modal" id="question-modal">
+    <div class="modal-content">
+        <div class="center-align">
+          <i class="blue-text material-icons question-icon">info_outline</i>
+        </div>
+      <div class="row center-align grey-text">
+        <div class="question">
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="btn-group center-align">
+            <button type="submit" class="modal-action modal-close btn btn-floating left-align red"><i class="material-icons">close</i></button>
+            <a href="" class="btn btn-floating right-align green"><i class="material-icons">check</i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal info-modal" id="info-modal">
+    <div class="modal-content">
+      <ul>
+        <li class="section">
+          Usuario que registro la solicitud: <span id="creador"></span>
+        </li>
+        <div class="divider"></div>
+        <li class="section">
+          Fecha de creacion: <span id="fecha-creacion"></span>
+        </li>
+        <div class="divider"></div>
+        <li class="section">
+          Usuario que proceso la solicitud: <span id="procesador"></span>
+        </li>
+        <div class="divider"></div>
+        <li class="section">
+          Fecha de procesamiento: <span id="fecha-proceso"></span>
+        </li>
+        <div class="divider"></div>
+        <li class="section">
+          Fecha de firma: <span id="fecha-firma"></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
 {% endblock %}

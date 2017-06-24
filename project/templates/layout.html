@@ -25,14 +25,43 @@
       <script type="text/javascript">
       $(document).ready(function(){
         $('.modal').modal()
+        $('select').material_select();
+
+
+        $('#question-modal').modal({
+          ready: function(modal, trigger){
+
+            var question = trigger.data('question');
+            var url = trigger.data('url');
+
+            modal.find('.question').text(question);
+            modal.find('.btn-group a').attr('href', url);
+          },
+        })
+
+        $('#info-modal').modal({
+          ready: function(modal, trigger){
+
+            var usuario_c = trigger.data('uc');
+            var fecha_c = trigger.data('fc');
+            var usuario_p = trigger.data('up');
+            var fecha_p = trigger.data('fp');
+            var fecha_f = trigger.data('ff');
+
+            modal.find('#creador').text(usuario_c);
+            modal.find('#fecha-creacion').text(fecha_c);
+            modal.find('#procesador').text(usuario_p);
+            modal.find('#fecha-proceso').text(fecha_p);
+            modal.find('#fecha-firma').text(fecha_f);
+          },
+
+        })
+
+        // Tipped.create('.tipped');
+        $('.tipped').tooltip({delay: 50});
+
       });
 
-      $(document).ready(function() {
-        Tipped.create('.recibido', 'Falta enviar correo de recibido');
-        Tipped.create('.procesado', 'Falta enviar correo de procesado');
-        Tipped.create('.listo', 'Falta enviar correo de ya esta listo');
-        Tipped.create('.entregado', 'Falta confirmar si ya fue retirado');
-      });
       </script>
     </body>
 </html>

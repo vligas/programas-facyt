@@ -37,10 +37,13 @@ DJANGO_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'widget_tweaks',
 )
 
-THIRD_PARTY_APPS = ()
+THIRD_PARTY_APPS = (
+    'ratelimit',
+    'simple_search',
+    'widget_tweaks',
+)
 
 LOCAL_APPS = (
     'apps.Proceso',

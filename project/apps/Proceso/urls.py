@@ -6,10 +6,18 @@ from . import views
 
 urlpatterns = [
 
-    url(r'^$', login_required(views.home), name='home'),
-    url(r'^crear_solicitud/$', login_required(views.crear_solicitud), name='crear_solicitud'),
-    url(r'^solicitud/(?P<id>[0-9]+)/procesar/$', login_required(views.solicitud), name='solicitud'),
-    url(r'^solicitud/(?P<id>[0-9]+)/confirmar_correo/$', login_required(views.recibido), name='confirmar_email'),
-    url(r'^solicitud/(?P<id>[0-9]+)/descargar/$', login_required(views.descargar_programas), name='descargar_programas'),
+    url(r'^$', views.home, name='home'),
+    url(r'^crear_solicitud/$', views.crear_solicitud, name='crear_solicitud'),
+    url(r'^solicitud/(?P<id>[0-9]+)/procesar/$', views.solicitud, name='solicitud'),
+    url(r'^solicitud/(?P<id>[0-9]+)/descargar/$', views.descargar_programas, name='descargar_programas'),
+    url(r'^solicitud/(?P<solicitud_id>[0-9]+)/(?P<programa_id>[0-9]+)/$', views.eliminar_programa, name='eliminar_programa'),
+
+    # ACCIONES
+    url(r'^solicitud/(?P<id>[0-9]+)/confirmar_correo_recibido/$', views.recibido, name='confirmar_email_recibido'),
+    url(r'^solicitud/(?P<id>[0-9]+)/confirmar_correo_procesado/$', views.procesado, name='confirmar_email_procesado'),
+    url(r'^solicitud/(?P<id>[0-9]+)/confirmar_verificacion/$', views.verificado, name='confirmar_verificado'),
+    url(r'^solicitud/(?P<id>[0-9]+)/confirmar_firma/$', views.firma, name='confirmar_firma'),
+    url(r'^solicitud/(?P<id>[0-9]+)/confirmar_correo_listo/$', views.listo, name='confirmar_listo'),
+    url(r'^solicitud/(?P<id>[0-9]+)/confirmar_entrega/$', views.entregado, name='confirmar_entregado'),
 
 ]

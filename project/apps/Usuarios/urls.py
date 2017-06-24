@@ -1,4 +1,5 @@
 from django.contrib.auth.views import login, logout_then_login
+from ratelimit.decorators import ratelimit
 from django.conf.urls import url
 from . import views
 

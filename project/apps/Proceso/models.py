@@ -4,9 +4,13 @@ from django.contrib.auth.models import User #Necesario para el User de la relaci
 
 # Create your models here.
 ESTATUS_CHOICES = ( #Posibles estatus de la Solicitud
-    ('R','Recibido'),
-    ('E','Entregado'),
-    ('P','En Proceso'),
+    ('R','Recibida'),
+    ('P','Procesada'),
+    ('V', 'Verificacion'),
+    ('EF', 'Espera de firma'),
+    ('FI', 'Firmada'),
+    ('E','Entregada'),
+    ('F', 'Finalizada'),
 )
 # BUG DEBEN SER TUPLAS, NO LO ERAN
 
@@ -34,7 +38,7 @@ class Solicitud(models.Model):
     correo_recibido = models.BooleanField(default=False)#Logico que informa si el correo fue recibido
     correo_procesado = models.BooleanField(default=False)#logico que informa si el correo fue procesado
     correo_listo = models.BooleanField(default=False)#logico que de que se envio el correo que informa si ya su solicitud esta lista y puede ir a buscarla
-    estatus = models.CharField(default = 'R', choices=ESTATUS_CHOICES, max_length=10)#estatus actual de la Solicitud
+    estatus = models.CharField(default = 'R', choices=ESTATUS_CHOICES, max_length=20)#estatus actual de la Solicitud
     lista = models.FileField(upload_to=path_solicitud, null=True, blank=True)#Lista de programas de la persona
 
     def __str__(self):

@@ -7,7 +7,7 @@
   <div class="navbar-fixed">
     <nav class="white main-nav ">
       <div class="nav-wrapper" role="navigation">
-        <a href="#" class="brand-logo left"><img class="responsive-img" src="{% static 'img/logo-completo.png'%}" alt="LogoFacyt"></a>
+        <a href="{% url 'home' %}" class="brand-logo left"><img class="responsive-img" src="{% static 'img/logo-completo.png'%}" alt="LogoFacyt"></a>
         <!--<ul class="hide-on-med-and-down right">-->
         <ul class="hide-on-med-and-down right">
           <li><a href="#modal1" class="waves-effect waves-light btn blue">Añadir</a></li>
@@ -61,7 +61,7 @@
         <br>
           <div class="row">
             <div class="btn-group center-align">
-                <button type="submit" class="btn btn-floating left-align red"><i class="material-icons">close</i></a>
+                <button type="close" class="modal-action modal-close btn btn-floating left-align red"><i class="material-icons">close</i></a>
                 <button type="submit" class="btn btn-floating right-align green"><i class="material-icons">check</i></a>
             </div>
           </div>

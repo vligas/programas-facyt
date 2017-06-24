@@ -7,80 +7,76 @@
 {% block content_two %}
   <div class="row">
     <div class="col s12 m12 l6">
-      <h5 class="center-align">15 Victor Ligas V-26.267.115</h5>
-      <br>
+
+
       <div class="container">
+        {% if form.errors.items %}
+          <div class="error red lighten-2 white-text card card-content">
+            {% for field, errors in form.errors.items %}
+              <div>
+                {{errors}}
+              </div>
+            {% endfor %}
+          </div>
+          <br>
+        {% endif %}
+        <h5>{{ solicitud }} <a href="{{solicitud.archivo_adjunto.url}}" target="_blank"><i class="fa fa-file-pdf-o red-text"></i></a></h5>
+        <p>ID : <span class="blue-text">{{solicitud.pk}}</span></p>
+        <p>C.I : <span class="blue-text">{{solicitud.cedula}}</span></p>
+        <p>Correo : <span class="blue-text">{{solicitud.correo}}</span></p>
+        <p>Telefono : <span class="blue-text">{{solicitud.telefono}}</span></p>
+        <br>
         <form method="post">
           {% csrf_token %}
-          <!-- <div class="input-field">
-            <label for="nombre">Periodo</label>
-            <input id="nombre" type="text" class="validate">
+          <div class="input-field">
+            {{form.periodo.label_tag}}
+            {% render_field form.periodo %}
           </div>
           <div class="input-field">
-            <label for="cedula">Materias</label>
-            <input id="cedula" type="text" class="validate">
+            {{form.materias.label_tag}}
+            {% render_field form.materias %}
           </div>
           <br>
           <div class="btn-group center-align">
-              <a href="" class="btn btn-floating right-align blue"><i class="material-icons">check</i></a>
-          </div> -->
-          {{ form.as_p }}
-          <button type="submit">Submit</button>
+              <button type="submit" class="btn btn-floating right-align blue"><i class="material-icons">check</i></a>
+          </div>
         </form>
       </div>
     </div>
 
     <div class="col s12 m12 l6">
-      <!-- <div class="row">
-        <div class="col s10 offset-s1">
-          <br>
-          <br>
-          <br>
-          <div class="card color-card darken-1">
-            <div class="card-content white-text">
-              <span class="card-title center-align"><i class="fa fa-exclamation-triangle text-darken-3"></i>No hay programas añadidos<i class="fa fa-exclamation-triangle text-darken-3"></i></span>
-              <p class="text-card">Lo que deseen poner en este espacio Lorem strud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      {% comment %}
-      {% for programa in solicitud.programas.all %}
-      {{programa}}
-      {% endfor %}
-      {% endcomment %}
-      {{ solicitud.programas_ordenados }}
-      <br />
-      <a href="{% url 'descargar_programas' solicitud.pk %}">Descargar</a>
-      <!-- <h5 class="center-align">Programas listos para descargar <a href="" class="btn btn-floating right-align blue"><i class="material-icons">file_download</i></a> </h5>
-      <br>
-      <div class="scroll-def">
-        <ul class="collection">
-          <li class="collection-item ">
-            <span class="title"><strong>1-2016</strong></span>
-            <p class="color-text-g">TAO-201, CAO-402, TAO-302, CAO-205</p>
-          </li>
-          <li class="collection-item ">
-            <span class="title"><strong>1-2016</strong></span>
-            <p class="color-text-g">TAO-201, CAO-402, TAO-302, CAO-205</p>
-          </li>
-          <li class="collection-item ">
-            <span class="title"><strong>1-2016</strong></span>
-            <p class="color-text-g">TAO-201, CAO-402, TAO-302, CAO-205</p>
-          </li>
-          <li class="collection-item ">
-            <span class="title"><strong>1-2016</strong></span>
-            <p class="color-text-g">TAO-201, CAO-402, TAO-302, CAO-205</p>
-          </li>
-          <li class="collection-item ">
-            <span class="title"><strong>1-2016</strong></span>
-            <p class="color-text-g">TAO-201, CAO-402, TAO-302, CAO-205</p>
-          </li>
-          <li class="collection-item ">
-            <span class="title"><strong>1-2016</strong></span>
-            <p class="color-text-g">TAO-201, CAO-402, TAO-302, CAO-205</p>
-          </li>
-        </ul> -->
+      <div class="container">
+       <div class="row">
+
+           {% for programa in solicitud.programas_ordenados %}
+           <h5 class"center-align">Programas listos para descargar <a href="{% url 'descargar_programas' solicitud.pk %}" class="btn btn-floating right-align blue"><i class="material-icons">file_download</i></a> </h5>
+           <br>
+           <div class="scroll-def">
+             <ul class="collection">
+               <li class="collection-item avatar">
+                 <i class="fa fa-check fa-2x green-text white circle"></i>
+                 <span class="title"><strong>{{programa.periodo}}</strong></span>
+                 <p class="color-text-g">
+                   {% for materia in programa.materias %}
+                   <a href="{% url 'eliminar_programa' solicitud.id materia.id %}" class="eliminar-programa grey-text">{{materia.codigo_materia}}</a>
+                   {% endfor %}
+                 </p>
+               </li>
+             </ul>
+             {% empty %}
+             <div class="col s10 offset-s1">
+               <br>
+               <br>
+               <br>
+               <div class="card blue">
+                 <div class="card-content white-text">
+                   <span class="card-title center-align"><i class="fa fa-exclamation-triangle text-darken-3"></i>No hay programas añadidos<i class="fa fa-exclamation-triangle text-darken-3"></i></span>
+                 </div>
+               </div>
+             </div>
+             {% endfor %}
+           </div>
+         </div>
 
       </div>
     </div>

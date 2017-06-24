@@ -74,11 +74,11 @@ body {
 
 .modal-solicitud {
   width: 30% !important;
-  min-height: 550px !important;
+  /*min-height: 550px !important;*/
 }
 
 .modal-acciones{
-  
+
 }
 
 .color-text-g{
@@ -88,7 +88,7 @@ body {
 
 .scroll-def{
   height: 350px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .title{
@@ -99,7 +99,6 @@ body {
   margin-bottom: 0px !important;
 }
 
-
 .btn-group .btn
 {
     margin:0px 20px;
@@ -109,6 +108,55 @@ body {
   text-align: justify;
 }
 
-.color-card{
-  background-color: rgb(40, 139, 175) !important;
+.estatus-circle
+{
+  display: inline-block;
+  width:10px;
+  height:10px;
+  border-radius: 25%;
+}
+
+.question-modal
+{
+  width:300px !important;
+  height:default !important;
+}
+
+.question-icon
+{
+  font-size: 70px !important;
+}
+
+.eliminar-programa
+{
+  position:relative;
+}
+.eliminar-programa::after
+{
+  font-family: "FontAwesome";
+  content: "\f00d";
+  position:absolute;
+  font-size:30px;
+  top:-3px;
+  left:30%;
+  color:rgb(236, 100, 100);
+  opacity:0;
+  transition:all 0.3s linear;
+}
+
+
+.eliminar-programa:hover::after
+{
+  font-family: "FontAwesome";
+  content: "\f00d";
+  position:absolute;
+  font-size:30px;
+  top:-5px;
+  left:30%;
+  color:rgb(236, 100, 100);
+  opacity:0.5;
+}
+
+.fa-stack {
+    top: -7px;
 }
