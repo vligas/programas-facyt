@@ -225,7 +225,8 @@ def descargar_programas(request, id):
     # CREO EL HEADER QUE SE VA A AÑADIR A LOS PDFS
     packet = BytesIO()
     cv = canvas.Canvas(packet)
-    cv.drawString(350, 820, "{} {} - {}".format(solicitud.nombre, solicitud.apellido, solicitud.cedula))
+    cv.setFont("Times-Roman", 11)
+    cv.drawString(350, 750, "{} {} - {}".format(solicitud.nombre, solicitud.apellido, solicitud.cedula))
 
     cv.save()
 
