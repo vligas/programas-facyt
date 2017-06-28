@@ -47,12 +47,12 @@
     <div class="col s12 m12 l6">
       <div class="container">
        <div class="row">
-
-           {% for programa in solicitud.programas_ordenados %}
-           <h5 class"center-align">Programas listos para descargar <a href="{% url 'descargar_programas' solicitud.pk %}" class="btn btn-floating right-align blue"><i class="material-icons">file_download</i></a> </h5>
-           <br>
+          {% if solicitud.programas_ordenados %}
+          <h5 class"center-align">Programas listos para descargar <a href="{% url 'descargar_programas' solicitud.pk %}" class="btn btn-floating right-align blue"><i class="material-icons">file_download</i></a> </h5>
+          <br>
            <div class="scroll-def">
              <ul class="collection">
+               {% for programa in solicitud.programas_ordenados %}
                <li class="collection-item avatar">
                  <i class="fa fa-check fa-2x green-text white circle"></i>
                  <span class="title"><strong>{{programa.periodo}}</strong></span>
@@ -62,8 +62,10 @@
                    {% endfor %}
                  </p>
                </li>
+               {% endfor %}
              </ul>
-             {% empty %}
+           </div>
+           {% else %}
              <div class="col s10 offset-s1">
                <br>
                <br>
@@ -74,7 +76,7 @@
                  </div>
                </div>
              </div>
-             {% endfor %}
+             {% endif %}
            </div>
          </div>
 
