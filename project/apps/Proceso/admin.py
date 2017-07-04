@@ -5,7 +5,7 @@ from . import models
 @admin.register(models.Programas)
 class ProgramasModelAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'periodo_electivo', 'periodo_annio', 'file']
-    search_fields = ['^codigo_materia', '^nombre', '^periodo_annio']
+    search_fields = ['codigo_materia', 'nombre', 'periodo_annio']
 
     def file(self, obj):
         if obj.archivo:
@@ -15,7 +15,7 @@ class ProgramasModelAdmin(admin.ModelAdmin):
 
 @admin.register(models.Archivo)
 class ArchivoModelAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['documento']
 
 
 admin.site.register(models.Solicitud)
