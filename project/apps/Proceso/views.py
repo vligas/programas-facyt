@@ -237,6 +237,7 @@ def descargar_programas(request, id):
     # E.g [thearchive.zip]/somefiles/file2.txt
     zip_subdir = "programas"
     zip_filename = "{}_{}_{}.zip".format(solicitud.pk,solicitud.nombre,solicitud.apellido)
+    zip_filename.replace(' ','_')
 
 
     # The zip compressor
