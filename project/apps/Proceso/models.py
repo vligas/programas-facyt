@@ -78,7 +78,7 @@ class Solicitud(models.Model):
         return result
 
     def nro_programas(self):
-        return len(self.programas)
+        return self.programas.count()
 
 
 class Archivo(models.Model):
