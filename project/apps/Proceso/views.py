@@ -58,6 +58,8 @@ def home(request):
     else:
         solicitudes = models.Solicitud.objects.filter(~Q(estatus = 'F'))
 
+    solicitudes = solicitudes.order_by('-fecha_creacion')
+    
     context = {
         'form':form,
         'solicitudes':solicitudes,

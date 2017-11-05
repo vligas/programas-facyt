@@ -48,7 +48,7 @@
       <div class="container">
        <div class="row">
           {% if solicitud.programas_ordenados %}
-          <h5 class"center-align">Programas listos para descargar (#{{soclitiud.nro_programas}})<a href="{% url 'descargar_programas' solicitud.pk %}" class="btn btn-floating right-align blue"><i class="material-icons">file_download</i></a> </h5>
+          <h5 class"center-align">Programas listos para descargar (#{{solicitud.nro_programas}})<a href="{% url 'descargar_programas' solicitud.pk %}" class="btn btn-floating right-align blue"><i class="material-icons">file_download</i></a> </h5>
           <br>
            <div class="scroll-def">
              <ul class="collection">
