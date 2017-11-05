@@ -48,7 +48,7 @@
       <div class="container">
        <div class="row">
           {% if solicitud.programas_ordenados %}
-          <h5 class"center-align">Programas listos para descargar <a href="{% url 'descargar_programas' solicitud.pk %}" class="btn btn-floating right-align blue"><i class="material-icons">file_download</i></a> </h5>
+          <h5 class"center-align">Programas listos para descargar (#{{soclitiud.nro_programas}})<a href="{% url 'descargar_programas' solicitud.pk %}" class="btn btn-floating right-align blue"><i class="material-icons">file_download</i></a> </h5>
           <br>
            <div class="scroll-def">
              <ul class="collection">
@@ -58,7 +58,7 @@
                  <span class="title"><strong>{{programa.periodo}}</strong></span>
                  <p class="color-text-g">
                    {% for materia in programa.materias %}
-                   <a href="{% url 'eliminar_programa' solicitud.id materia.id %}" class="eliminar-programa grey-text">{{materia.codigo_materia}}</a>
+                   <a href="{% url 'eliminar_programa' solicitud.id materia.id %}" class="eliminar-programa grey-text tipped" data-position="top" data-tooltip="{{materia.nombre}}">{{materia.codigo_materia}}</a>
                    {% endfor %}
                  </p>
                </li>

@@ -77,6 +77,9 @@ class Solicitud(models.Model):
 
         return result
 
+    def nro_programas(self):
+        return self.programas.len()
+
 
 class Archivo(models.Model):
     documento = models.FileField(upload_to='programas')
